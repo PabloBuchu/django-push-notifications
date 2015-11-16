@@ -52,7 +52,8 @@ def _apns_create_socket(address_tuple, cert_for):
 
 
 def _apns_create_socket_to_push(cert_for):
-	return _apns_create_socket((SETTINGS["APNS_HOST"], SETTINGS["APNS_PORT"]), cert_for)
+	host = SETTINGS.get("APNS_HOSTS").get(cert_for, SETTINGS.get("APNS_HOSTS").get('default'))
+	return _apns_create_socket((host, SETTINGS["APNS_PORT"]), cert_for)
 
 
 def _apns_create_socket_to_feedback(cert_for):
